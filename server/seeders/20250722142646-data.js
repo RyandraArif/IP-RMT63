@@ -7,7 +7,7 @@ const axios = require("axios");
 module.exports = {
   async up(queryInterface, Sequelize) {
     const clientId = process.env.MAL_CLIENT_ID;
-    // console.log("--------->", clientId);
+    console.log("--------->", clientId);
 
     const genreToString = (genres) =>
       genres.map((genre) => genre.name).join(", ");
@@ -47,7 +47,7 @@ module.exports = {
 
       await queryInterface.bulkInsert("Animes", animeList);
     } catch (err) {
-      console.log("------------------>", err.response.data);
+      console.log("------------------>", err);
     }
   },
 

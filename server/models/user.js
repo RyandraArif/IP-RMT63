@@ -1,4 +1,5 @@
 "use strict";
+const { hashPassword } = require("../helpers/bcrypt");
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -43,6 +44,19 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: "Password is required",
+          },
+          notNull: {
+            msg: "Password is required",
+          },
+        },
+      },
       profilePict: DataTypes.STRING,
       genre: {
         type: DataTypes.STRING,
@@ -63,5 +77,8 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
     }
   );
+  User.beforeCreate((user) => {
+    user.password = hashPassword(user.password);
+  });
   return User;
 };
