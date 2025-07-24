@@ -6,6 +6,7 @@ const AnimeController = require("./controllers/animeController");
 const UserController = require("./controllers/userController");
 const FavoriteController = require("./controllers/favoriteController");
 const authentication = require("./middlewares/authentication");
+const errorHandler = require("./middlewares/errorHandler");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -25,5 +26,7 @@ app.get("/animes/:id", AnimeController.getAnimeById);
 app.post("/favorites", FavoriteController.addFavorite);
 app.get("/favorites", FavoriteController.getUserFavorites);
 app.delete("/favorites/:id", FavoriteController.deleteFavorite);
+
+app.use(errorHandler);
 
 module.exports = app;
