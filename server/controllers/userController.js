@@ -2,6 +2,7 @@ require("dotenv").config();
 const { User } = require("../models");
 const { comparePassword } = require("../helpers/bcrypt");
 const { signToken } = require("../helpers/jwt");
+const { hashPassword } = require("../helpers/bcrypt");
 
 module.exports = class UserController {
   static async googleLogin(req, res, next) {
@@ -25,34 +26,37 @@ module.exports = class UserController {
       const access_token = signToken({ id: user.id });
       res.status(200).json({ message: "Login Success", access_token });
     } catch (err) {
-      console.log(err, "<-------");
-      res.status(500).json({ message: "Internal Server Error" });
-      //   next(err);
+      // console.log(err, "<-------");
+      // res.status(500).json({ message: "Internal Server Error" });
+      next(err);
     }
   }
 
   static async register(req, res, next) {
     try {
-      const user = await User.create(req.body);
+      const { name, email, password, genre, profilePict } = req.body;
+
+      if (!genre || genre.trim() === "") {
+        throw { name: "BadRequest", message: "Genre is required" };
+      }
+
+      const user = await User.create({
+        name,
+        email,
+        password,
+        genre,
+        profilePict,
+      });
+
       res.status(201).json({
         id: user.id,
         email: user.email,
         genre: user.genre,
       });
     } catch (err) {
-      console.log("------------->", err);
-      if (
-        err.name === "SequelizeValidationError" ||
-        err.name === "SequelizeUniqueConstraintError"
-      ) {
-        res.status(400).json({
-          message: err.errors[0].message,
-        });
-      } else {
-        res.status(500).json({
-          message: "Internal server error",
-        });
-      }
+      // console.log("----------->", err);
+
+      next(err);
     }
   }
 
@@ -72,7 +76,7 @@ module.exports = class UserController {
       if (!user) {
         throw {
           name: "Unauthorized",
-          message: "Error invalid username or email or password",
+          message: "Invalid email or password",
         };
       }
 
@@ -80,7 +84,7 @@ module.exports = class UserController {
       if (!validPassword) {
         throw {
           name: "Unauthorized",
-          message: "Error invalid username or email or password",
+          message: "Invalid email or password",
         };
       }
 
@@ -89,10 +93,11 @@ module.exports = class UserController {
         access_token,
       });
     } catch (err) {
-      console.log("-------->", err);
-      res.status(500).json({
-        message: "Internal server error",
-      });
+      // console.log("-------->", err);
+      // res.status(500).json({
+      //   message: "Internal server error",
+      // });
+      next(err);
     }
   }
 

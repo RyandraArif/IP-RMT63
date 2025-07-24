@@ -18,7 +18,12 @@ module.exports = class AnimeController {
       }
 
       if (filter?.genres) {
-        queryOptions.where.genre = { [Op.overlap]: filter.genres.split(",") };
+        const genres = filter.genres.split(",").map((g) => g.trim());
+        queryOptions.where[Op.or] = genres.map((genre) => ({
+          genre: {
+            [Op.iLike]: `%${genre}%`,
+          },
+        }));
       }
 
       if (sort) {
@@ -26,6 +31,7 @@ module.exports = class AnimeController {
       }
 
       if (page?.size) queryOptions.limit = Number(page.size);
+
       if (page?.number) {
         queryOptions.offset = (Number(page.number) - 1) * queryOptions.limit;
       }
@@ -75,11 +81,15 @@ module.exports = class AnimeController {
         };
       }
 
+      const userGenres = user.genre.split(",").map((g) => g.trim());
+
       const recommendations = await Anime.findAll({
         where: {
-          genre: {
-            [Op.overlap]: user.genre.split(","),
-          },
+          [Op.or]: userGenres.map((genre) => ({
+            genre: {
+              [Op.iLike]: `%${genre}%`,
+            },
+          })),
         },
         limit: 10,
       });
