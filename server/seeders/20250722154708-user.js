@@ -7,8 +7,8 @@ module.exports = {
     try {
       await queryInterface.bulkInsert("Users", [
         {
-          name: "Danang",
-          email: "Danang@example.com",
+          name: "danang",
+          email: "danang@example.com",
           password: hashPassword("123456"),
           profilePict:
             "https://cdn.myanimelist.net/images/characters/9/310307.jpg",
@@ -17,7 +17,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          name: "Saputro",
+          name: "saputro",
           email: "saputro@example.com",
           password: hashPassword("123456"),
           profilePict:

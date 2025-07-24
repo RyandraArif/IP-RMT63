@@ -60,13 +60,10 @@ module.exports = (sequelize, DataTypes) => {
       profilePict: DataTypes.STRING,
       genre: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           notEmpty: {
             args: true,
-            msg: "Genre is required",
-          },
-          notNull: {
             msg: "Genre is required",
           },
         },
