@@ -16,7 +16,7 @@ export default function RegisterPage() {
     console.log(name, email, password, genre);
 
     try {
-      await axios.post("http://localhost:3000/register", {
+      await axios.post("https://api.ryandraarif.com/register", {
         name,
         email,
         password,

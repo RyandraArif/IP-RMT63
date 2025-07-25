@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://api.ryandraarif.com";
 
 export default function AnimeDetail() {
   const { id } = useParams();

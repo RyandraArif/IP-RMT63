@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://api.ryandraarif.com";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
