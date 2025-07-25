@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --verbose --silent",
+    "test": "jest --detectOpenHandles --verbose --silent --coverage",
     "dev": "npx nodemon bin/www "
   },
   "keywords": [],
