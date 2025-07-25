@@ -2,7 +2,8 @@ require("dotenv").config();
 const { User } = require("../models");
 const { comparePassword } = require("../helpers/bcrypt");
 const { signToken } = require("../helpers/jwt");
-const { hashPassword } = require("../helpers/bcrypt");
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client();
 
 module.exports = class UserController {
   static async googleLogin(req, res, next) {
@@ -20,6 +21,7 @@ module.exports = class UserController {
           name,
           email,
           password: Math.random().toString(36).slice(-8),
+          genre: [],
         });
       }
 
@@ -108,6 +110,21 @@ module.exports = class UserController {
       res.json({ message: "Genre updated" });
     } catch (err) {
       next(err);
+    }
+  }
+
+  static async getProfile(req, res, next) {
+    try {
+      const userId = req.user.id;
+      const user = await User.findByPk(userId, {
+        attributes: ["id", "email", "genre"],
+      });
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.status(200).json({ data: user });
+    } catch (error) {
+      next(error);
     }
   }
 };
