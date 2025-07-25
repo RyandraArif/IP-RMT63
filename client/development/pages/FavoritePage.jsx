@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import AnimeCard from "../component/AnimeCard";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://api.ryandraarif.com";
 
 export default function FavoritesPage() {
   const [favorites, setFavorites] = useState([]);

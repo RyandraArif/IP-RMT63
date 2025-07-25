@@ -10,7 +10,7 @@ export default function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:3000/login", {
+      const { data } = await axios.post("https://api.ryandraarif.com/login", {
         email,
         password,
       });
@@ -25,9 +25,12 @@ export default function LoginPage() {
   async function handleCredentialResponse(response) {
     console.log("Encoded JWT ID token: " + response.credential);
     try {
-      const { data } = await axios.post("http://localhost:3000/login/google", {
-        id_token: response.credential,
-      });
+      const { data } = await axios.post(
+        "https://api.ryandraarif.com/login/google",
+        {
+          id_token: response.credential,
+        }
+      );
       localStorage.setItem("access_token", data.access_token);
       console.log("Login success");
       navigate("/");
