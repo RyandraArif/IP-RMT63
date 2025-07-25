@@ -15,6 +15,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "test server" });
+});
+
 app.post("/register", UserController.register);
 app.post("/login", UserController.login);
 app.post("/login/google", UserController.googleLogin);
