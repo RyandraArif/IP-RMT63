@@ -5,6 +5,7 @@ const cors = require("cors");
 const AnimeController = require("./controllers/animeController");
 const UserController = require("./controllers/userController");
 const FavoriteController = require("./controllers/favoriteController");
+const { getRecommendations } = require("./controllers/geminiController");
 const authentication = require("./middlewares/authentication");
 const errorHandler = require("./middlewares/errorHandler");
 
@@ -17,7 +18,9 @@ app.post("/login", UserController.login);
 app.post("/login/google", UserController.googleLogin);
 
 app.use(authentication);
-app.patch("/users/genre", UserController.updateGenre);
+app.put("/users/genres", UserController.updateGenre);
+app.get("/profiles", UserController.getProfile);
+app.get("/recommendations", getRecommendations);
 
 app.get("/animes", AnimeController.getAnime);
 app.get("/animes/recommendations", AnimeController.getRecommendation);
