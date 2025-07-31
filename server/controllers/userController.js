@@ -21,7 +21,7 @@ module.exports = class UserController {
           name,
           email,
           password: Math.random().toString(36).slice(-8),
-          genre: "action",
+          genre: "Unknown",
         });
       }
 
