@@ -1,13 +1,13 @@
 import { useState } from "react";
-import RecommendationForm from "../components/RecommendationForm";
-import AnimeCard from "../components/AnimeCard";
+import RecommendationForm from "../pages/RecommendationForm";
+import AnimeCard from "./AnimeCard";
 
 const RecommendationPage = () => {
   const [recommendations, setRecommendations] = useState([]);
 
   return (
     <div className="container py-5">
-      <h1 className="mb-4">AI Anime Recommender</h1>
+      <h1 className="mb-4">AI Anime Recommendation</h1>
 
       <RecommendationForm onRecommendationsGenerated={setRecommendations} />
 

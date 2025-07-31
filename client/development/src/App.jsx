@@ -28,7 +28,7 @@ function App() {
           <Route path="/profiles" element={<ProfilePage />} />
           <Route path="/animes/:id" element={<AnimeDetail />} />
           <Route path="/favorites" element={<FavoritesPage />} />
-          <Route path="/ai-recommend" element={<RecommendationPage />} />
+          <Route path="/recommendations" element={<RecommendationPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
