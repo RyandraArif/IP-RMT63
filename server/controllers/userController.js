@@ -21,11 +21,12 @@ module.exports = class UserController {
           name,
           email,
           password: Math.random().toString(36).slice(-8),
-          genre: "Unknown",
+          genre: "action",
         });
       }
 
       const access_token = signToken({ id: user.id });
+
       res.status(200).json({ message: "Login Success", access_token });
     } catch (err) {
       next(err);
