@@ -6,6 +6,7 @@ import AnimeDetail from "../pages/DetailPage";
 import FavoritesPage from "../pages/FavoritePage";
 import Navbar from "../component/Navbar";
 import ProfilePage from "../pages/Profile";
+import RecommendationPage from "../component/RecommendationPage";
 
 function Layout() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/profiles" element={<ProfilePage />} />
           <Route path="/animes/:id" element={<AnimeDetail />} />
           <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/ai-recommend" element={<RecommendationPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -24,6 +24,14 @@ export default function ProfilePage() {
 
   const handleUpdateGenre = async (e) => {
     e.preventDefault();
+    if (!genreInput.trim()) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please input at least one genre!",
+      });
+      return;
+    }
     setLoading(true);
     try {
       await axios.put(
@@ -35,6 +43,14 @@ export default function ProfilePage() {
           },
         }
       );
+      await Swal.fire({
+        icon: "success",
+        title: "Updated!",
+        text: "Your genres have been updated",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
       fetchProfile();
     } catch (err) {
       console.error(err);

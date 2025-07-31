@@ -22,6 +22,9 @@ export default function Navbar() {
           <Link to="/favorites" className="nav-link text-white">
             Favorites
           </Link>
+          <Link to="/recommendations" className="nav-link text-white">
+            AI Recommendations
+          </Link>
         </div>
 
         {/* RIGHT NAV */}
