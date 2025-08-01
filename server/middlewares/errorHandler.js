@@ -20,7 +20,7 @@ module.exports = function errorHandler(err, req, res, next) {
   ) {
     return res.status(401).json({ message: err.message || "Invalid token" });
   } else if (err.name === "Not Found") {
-    return res.status(404).json({ message: "Data not found" });
+    return res.status(404).json({ message: err.message || "Data not found" });
   } else {
     return res.status(500).json({ message: "Internal Server Error" });
   }

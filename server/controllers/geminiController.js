@@ -2,6 +2,10 @@ const { Anime } = require("../models");
 const { generateGeminiContent } = require("../helpers/gemini");
 
 async function getRecommendations(req, res, next) {
+  // Validasi genre user
+  if (!req.user.genre || req.user.genre.trim() === "") {
+    return res.status(400).json({ message: "Genre is required" });
+  }
   try {
     const { customPrompt } = req.query;
 

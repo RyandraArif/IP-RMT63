@@ -24,7 +24,7 @@ app.post("/login", UserController.login);
 app.post("/login/google", UserController.googleLogin);
 
 app.use(authentication);
-app.put("/users/genres", UserController.updateGenre);
+app.patch("/users/genre", UserController.updateGenre);
 app.get("/profiles", UserController.getProfile);
 app.get("/recommendations", getRecommendations);
 

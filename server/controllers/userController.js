@@ -9,6 +9,9 @@ module.exports = class UserController {
   static async googleLogin(req, res, next) {
     const { id_token } = req.body;
     try {
+      if (!id_token) {
+        throw { name: "BadRequest", message: "id_token is required" };
+      }
       const ticket = await client.verifyIdToken({
         idToken: id_token,
         audience: process.env.CLIENT_ID,
