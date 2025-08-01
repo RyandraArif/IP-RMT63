@@ -1,7 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:3000"
+    : "https://api.ryandraarif.com";
 
 function removeNonAlphanumericAndSpaces(text) {
   return text
@@ -57,16 +60,24 @@ const RecommendationForm = ({ onRecommendationsGenerated }) => {
 
       Swal.fire("Success!", `Found ${data.length} recommendations.`, "success");
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Not Perfect Match",
-        html: `<p>Some results didn't match your request for <b>${prompt}</b></p>
-            <p>Try being more specific like:</p>
-            <ul>
-              <li>"Only romance anime with adult characters"</li>
-              <li>"Action anime with no comedy elements"</li>
-            </ul>`,
-      });
+      if (err.response && err.response.status === 500) {
+        Swal.fire({
+          icon: "error",
+          title: "AI Service Error",
+          text: "AI service is currently unavailable. Please try again later.",
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Not Perfect Match",
+          html: `<p>Some results didn't match your request for <b>${prompt}</b></p>
+              <p>Try being more specific like:</p>
+              <ul>
+                <li>"Only romance anime with adult characters"</li>
+                <li>"Action anime with no comedy elements"</li>
+              </ul>`,
+        });
+      }
     } finally {
       setIsLoading(false);
     }

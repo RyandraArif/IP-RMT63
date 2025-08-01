@@ -122,6 +122,6 @@ describe("DELETE /favorites/:id", () => {
       .set("Authorization", `Bearer ${access_token}`);
 
     expect(response.status).toBe(404);
-    expect(response.body.message).toBe("Data not found");
+    expect(response.body.message).toBe("Favorite not found");
   });
 });

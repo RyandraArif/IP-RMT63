@@ -31,8 +31,8 @@ export default function LoginPage() {
           id_token: response.credential,
         }
       );
-      // const genre = data.genre;
-      // localStorage.setItem("genre", genre);
+      const genre = data.genre;
+      localStorage.setItem("genre", genre);
       localStorage.setItem("access_token", data.access_token);
       console.log("Login success");
       navigate("/");
